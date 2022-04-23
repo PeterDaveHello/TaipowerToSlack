@@ -62,7 +62,7 @@ text="
 尖峰使用率： $(echo "$fore_peak_dema_load * 100 / $fore_maxi_sply_capacity" | bc)%
 預估最高用電： $fore_peak_dema_load 萬瓩
 預估最高用電時段： $fore_peak_hour_range
-最大供電能力： $fore_maxi_sply_capacity 萬瓩
+預估最大供電能力： $fore_maxi_sply_capacity 萬瓩
 預估尖峰備轉容量率： $fore_peak_resv_rate%
 預估尖峰備轉容量： $fore_peak_resv_capacity 萬瓩"
 
