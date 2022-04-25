@@ -81,7 +81,7 @@ mrkdown="{
     ]
 }"
 
+rm -f "$TMP_FILE"
+
 echo.Cyan "$text"
 curl -s --fail -o /dev/null -X POST -H 'Content-type: application/json' --data "$mrkdown" "$SLACK_HOOK"
-
-rm -f "$TMP_FILE"
