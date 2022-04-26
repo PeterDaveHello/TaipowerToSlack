@@ -49,11 +49,11 @@ The result should be displayed on your Slack channel like the screenshot.
 
 ## Dependencies
 
-- jq, to parse the data
-- curl, to fetch the data
-- bash, to run the script
-- mktemp, to create the temp file
-- bc, to calculate the percentage from data
+- `jq`, to parse the data
+- `curl`, to fetch the data
+- `bash`, to run the script
+- `mktemp`, to create the temp file
+- `bc`, to calculate the percentage from data
 
 ## License
 
