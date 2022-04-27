@@ -47,6 +47,17 @@ SLACK_HOOK=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXX
 
 The result should be displayed on your Slack channel like the screenshot.
 
+### Only post to Slack when the status changed
+
+Set the variable `STATELESS` to `false` and `ONLY_POST_ON_STATUS_CHANGE` to `true` in `run.sh` as below:
+
+```sh
+STATELESS="false"
+ONLY_POST_ON_STATUS_CHANGE="true"
+```
+
+Then the script will use file `~/.taipower.status` to store the status, and only post the message to Slack when the status was changed.
+
 ## Dependencies
 
 - `jq`, to parse the data

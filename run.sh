@@ -7,6 +7,8 @@ function echo.BoldRed() { echo -e "\033[1;31m$*\033[m"; }
 #https://github.com/PeterDaveHello/ColorEchoForShell
 
 SRC="https://www.taipower.com.tw/d006/loadGraph/loadGraph/data/loadpara.json"
+STATELESS="true"
+ONLY_POST_ON_STATUS_CHANGE="false"
 
 if [ -z "$SLACK_HOOK" ]; then
     echo.BoldRed >&2 "\$SLACK_HOOK variable not set!"
@@ -83,5 +85,28 @@ mrkdown="{
 
 rm -f "$TMP_FILE"
 
+if [ "$STATELESS" != "true" ]; then
+    function update_status() {
+        echo "{\"latest_status\":\"$fore_peak_resv_indicator\",\"update_on\":\"$publish_time\"}" > "$STATUS_FILE"
+    }
+    STATUS_FILE="$HOME/.taipower.status"
+    if [ -e "$STATUS_FILE" ]; then
+        previous_status="$(jq -r .latest_status "$STATUS_FILE")"
+        if [ "$fore_peak_resv_indicator" != "$previous_status" ]; then
+            update_status
+        else
+            if [ "$ONLY_POST_ON_STATUS_CHANGE" = "true" ]; then
+                echo.Cyan "Status not changed, won't post to Slack!"
+                POST_TO_SLACK="false"
+            fi
+        fi
+    else
+        update_status
+    fi
+fi
+
 echo.Cyan "$text"
-curl -s --fail -o /dev/null -X POST -H 'Content-type: application/json' --data "$mrkdown" "$SLACK_HOOK"
+
+if [ "$POST_TO_SLACK" != "false" ]; then
+    curl -s --fail -o /dev/null -X POST -H 'Content-type: application/json' --data "$mrkdown" "$SLACK_HOOK"
+fi
