@@ -93,6 +93,11 @@ if [ "$STATELESS" != "true" ]; then
     if [ -e "$STATUS_FILE" ]; then
         previous_status="$(jq -r .latest_status "$STATUS_FILE")"
         if [ "$fore_peak_resv_indicator" != "$previous_status" ]; then
+            text="$text
+
+上次狀態： ${STATUS[$previous_status]}
+上次狀態改變時間： $(jq -r .update_on "$STATUS_FILE")
+"
             update_status
         else
             if [ "$ONLY_POST_ON_STATUS_CHANGE" = "true" ]; then
