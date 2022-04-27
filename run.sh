@@ -54,12 +54,14 @@ fore_peak_resv_capacity="$(jq -r '.[1].fore_peak_resv_capacity' "$TMP_FILE")"
 fore_peak_resv_rate="$(jq -r '.[1].fore_peak_resv_rate' "$TMP_FILE")"
 fore_peak_resv_indicator="$(jq -r '.[1].fore_peak_resv_indicator' "$TMP_FILE")"
 fore_peak_hour_range="$(jq -r '.[1].fore_peak_hour_range' "$TMP_FILE")"
+real_hr_maxi_sply_capacity="$(jq -r '.[3].real_hr_maxi_sply_capacity' "$TMP_FILE")"
 publish_time="$(jq -r '.[1].publish_time' "$TMP_FILE")"
 
 text="
 今日電力資訊 *${STATUS[$fore_peak_resv_indicator]}*\n
 ( $publish_time 更新 )\n\n
 目前用電量： $curr_load 萬瓩
+目前供電能力： $real_hr_maxi_sply_capacity 萬瓩
 目前使用率： $curr_util_rate%
 尖峰使用率： $(echo "$fore_peak_dema_load * 100 / $fore_maxi_sply_capacity" | bc)%
 預估最高用電： $fore_peak_dema_load 萬瓩
