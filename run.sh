@@ -70,21 +70,6 @@ text="
 預估尖峰備轉容量率： $fore_peak_resv_rate%
 預估尖峰備轉容量： $fore_peak_resv_capacity 萬瓩"
 
-mrkdown="{
-    'blocks': [
-        {
-            'type': 'section',
-            'block_id': 'section567',
-            'text': { 'type': 'mrkdwn', 'text': '$text' },
-            'accessory': {
-                'type': 'image',
-                'image_url': 'https://www.taipower.com.tw/d006/loadGraph/loadGraph/images/${STATUS_PIC[$fore_peak_resv_indicator]}.png',
-                'alt_text': '${STATUS[$fore_peak_resv_indicator]}'
-            }
-        }
-    ]
-}"
-
 rm -f "$TMP_FILE"
 
 if [ "$STATELESS" != "true" ]; then
@@ -111,6 +96,21 @@ if [ "$STATELESS" != "true" ]; then
         update_status
     fi
 fi
+
+mrkdown="{
+    'blocks': [
+        {
+            'type': 'section',
+            'block_id': 'section567',
+            'text': { 'type': 'mrkdwn', 'text': '$text' },
+            'accessory': {
+                'type': 'image',
+                'image_url': 'https://www.taipower.com.tw/d006/loadGraph/loadGraph/images/${STATUS_PIC[$fore_peak_resv_indicator]}.png',
+                'alt_text': '${STATUS[$fore_peak_resv_indicator]}'
+            }
+        }
+    ]
+}"
 
 echo.Cyan "$text"
 
