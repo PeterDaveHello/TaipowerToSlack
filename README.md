@@ -1,15 +1,14 @@
 # TaipowerToSlack
 
-This script will help fetching the "Power Information of Today" from Taipower, to your Slack channel.
+TaipowerToSlack is a tool that fetches the "Power Information of Today" from Taipower and sends the data to a designated Slack channel, allowing users to easily monitor Taiwan's power supply status.
 
 Taipower's "Power Information of Today" page:
-
 - English: <https://www.taipower.com.tw/en/page.aspx?mid=4484>
 - Chinese: <https://www.taipower.com.tw/tc/page.aspx?mid=206&cid=402&cchk=8c59a5ca-9174-4d2e-93e4-0454b906018d>
 
-Please note that this is just a quite demo of using shell script, the code is ugly, and some magic is hard-coded.
+Please note that this is primarily a shell script demo, with code that might be less elegant and some hard-coded values.
 
-## Screenshot
+## Screenshots
 
 Slack Screenshot:
 
@@ -19,52 +18,59 @@ Terminal Screenshot:
 
 ![TerminalScreenshot](TerminalScreenshot.png)
 
-## Usage
+## Setup and Usage
 
-### Prepare your Slack Incoming Webhook URL
+### 1. Obtain your Slack Incoming Webhook URL
 
-See [Slack's Documentation](https://api.slack.com/messaging/webhooks) for the details.
+Refer to [Slack's Documentation](https://api.slack.com/messaging/webhooks) for details on how to obtain an Incoming Webhook URL for your Slack channel.
 
-### Clone this project, or download the run.sh script
+### 2. Clone this repository or download the script
+
+Clone the repository:
 
 ```sh
 git clone https://github.com/PeterDaveHello/TaipowerToSlack
 ```
 
+Or, download the run.sh script directly, and make the run.sh script executable:
+
 ```sh
 curl https://github.com/PeterDaveHello/TaipowerToSlack/raw/master/run.sh -o /path/to/TaipowerToSlack/run.sh
+chmod +x /path/to/TaipowerToSlack/run.sh
 ```
 
-### Directly run the script, or run it using cron
+### 3. Configure and execute the script
 
-Go to the directory of the script.
+Navigate to the directory containing the `run.sh` script.
 
-Set `SLACK_HOOK` variable in the shell script, or passing it when running the script:
+Set the `SLACK_HOOK` variable in the shell script, or pass it when running the script:
 
 ```sh
 SLACK_HOOK=https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX ./run.sh
 ```
 
-The result should be displayed on your Slack channel like the screenshot.
+The result should be displayed on your Slack channel as shown in the screenshot.
 
-### Only post to Slack when the status changed
+### 4. Optional: Post to Slack only when the status changes
 
-Set the variable `STATELESS` to `false` and `ONLY_POST_ON_STATUS_CHANGE` to `true` in `run.sh` as below:
+To enable this option, set the `STATELESS` variable to `false`, and the `ONLY_POST_ON_STATUS_CHANGE` variable to `true` in `run.sh`:
 
 ```sh
 STATELESS="false"
 ONLY_POST_ON_STATUS_CHANGE="true"
 ```
 
-Then the script will use file `~/.taipower.status` to store the status, and only post the message to Slack when the status was changed.
+With this configuration, the script will use the file `~/.taipower.status` to store the status and only post a message to Slack when the status changes.
 
 ## Dependencies
 
-- `jq`, to parse the data
-- `curl`, to fetch the data
-- `bash`, to run the script
-- `mktemp`, to create the temp file
-- `bc`, to calculate the percentage from data
+- `jq`: for parsing JSON data
+- `curl`: for fetching JSON data from the Taipower API
+- `bash`: for running the shell script
+- `mktemp`: for creating temporary files
+- `bc`: for calculating percentages from data
+
+If any of these tools are missing, you can usually install them using your system's package manager (e.g., `apt`, `yum`, or `pacman`).
 
 ## License
 
