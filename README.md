@@ -53,14 +53,22 @@ The result should be displayed on your Slack channel as shown in the screenshot.
 
 ### 4. Optional: Post to Slack only when the status changes
 
-To enable this option, set the `STATELESS` variable to `false`, and the `ONLY_POST_ON_STATUS_CHANGE` variable to `true` in `run.sh`:
+To enable this option, you can either set the `STATELESS` and `ONLY_POST_ON_STATUS_CHANGE` environment variables when running the script or modify them directly in the `run.sh` script:
 
-```sh
-STATELESS="false"
-ONLY_POST_ON_STATUS_CHANGE="true"
-```
+- Pass the variables when running the script:
 
-With this configuration, the script will use the file `~/.taipower.status` to store the status and only post a message to Slack when the status changes.
+  ```sh
+  STATELESS=false ONLY_POST_ON_STATUS_CHANGE=true ./run.sh
+  ```
+
+- Or modify the `run.sh` script:
+
+  ```sh
+  STATELESS="false"
+  ONLY_POST_ON_STATUS_CHANGE="true"
+  ```
+
+With either configuration, the script will use the file `~/.taipower.status` to store the status and only post a message to Slack when the status changes.
 
 ## Dependencies
 

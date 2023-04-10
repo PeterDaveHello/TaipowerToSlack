@@ -7,8 +7,8 @@ function echo.BoldRed() { echo -e "\033[1;31m$*\033[m"; }
 #https://github.com/PeterDaveHello/ColorEchoForShell
 
 SRC="https://www.taipower.com.tw/d006/loadGraph/loadGraph/data/loadpara.json"
-STATELESS="true"
-ONLY_POST_ON_STATUS_CHANGE="false"
+STATELESS="${STATELESS:-true}"
+ONLY_POST_ON_STATUS_CHANGE="${ONLY_POST_ON_STATUS_CHANGE:-false}"
 
 if [ -z "$SLACK_HOOK" ]; then
     echo.BoldRed >&2 "\$SLACK_HOOK variable not set!"
