@@ -44,18 +44,17 @@ if [ "true" != "$(jq -r .success "$TMP_FILE")" ]; then
     exit 1
 fi
 
-cat <<< "$(jq -c .records "$TMP_FILE")" > "$TMP_FILE"
-
-curr_load="$(jq -r '.[0].curr_load' "$TMP_FILE")"
-curr_util_rate="$(jq -r '.[0].curr_util_rate' "$TMP_FILE")"
-fore_maxi_sply_capacity="$(jq -r '.[1].fore_maxi_sply_capacity' "$TMP_FILE")"
-fore_peak_dema_load="$(jq -r '.[1].fore_peak_dema_load' "$TMP_FILE")"
-fore_peak_resv_capacity="$(jq -r '.[1].fore_peak_resv_capacity' "$TMP_FILE")"
-fore_peak_resv_rate="$(jq -r '.[1].fore_peak_resv_rate' "$TMP_FILE")"
-fore_peak_resv_indicator="$(jq -r '.[1].fore_peak_resv_indicator' "$TMP_FILE")"
-fore_peak_hour_range="$(jq -r '.[1].fore_peak_hour_range' "$TMP_FILE")"
-real_hr_maxi_sply_capacity="$(jq -r '.[3].real_hr_maxi_sply_capacity' "$TMP_FILE")"
-publish_time="$(jq -r '.[1].publish_time' "$TMP_FILE")"
+data="$(jq -c .records "$TMP_FILE")"
+curr_load="$(jq -r '.[0].curr_load' <<< "$data")"
+curr_util_rate="$(jq -r '.[0].curr_util_rate' <<< "$data")"
+fore_maxi_sply_capacity="$(jq -r '.[1].fore_maxi_sply_capacity' <<< "$data")"
+fore_peak_dema_load="$(jq -r '.[1].fore_peak_dema_load' <<< "$data")"
+fore_peak_resv_capacity="$(jq -r '.[1].fore_peak_resv_capacity' <<< "$data")"
+fore_peak_resv_rate="$(jq -r '.[1].fore_peak_resv_rate' <<< "$data")"
+fore_peak_resv_indicator="$(jq -r '.[1].fore_peak_resv_indicator' <<< "$data")"
+fore_peak_hour_range="$(jq -r '.[1].fore_peak_hour_range' <<< "$data")"
+real_hr_maxi_sply_capacity="$(jq -r '.[3].real_hr_maxi_sply_capacity' <<< "$data")"
+publish_time="$(jq -r '.[1].publish_time' <<< "$data")"
 
 text="
 今日電力資訊 *${STATUS[$fore_peak_resv_indicator]}*\n
